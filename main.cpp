@@ -1,69 +1,77 @@
 #include <iostream>
 
-class fraction
+class Fraction
 {
 private:
     int numerator;
     int denominator;
+
 public:
-    fraction(int numerator, int denominator)
+    Fraction(int numerator, int denominator)
     {
         this->numerator = numerator;
         this->denominator = denominator;
     }
-    fraction()
+
+    Fraction()
     {
         numerator = 1;
         denominator = 1;
     }
-    void setFraction(int numerator, int denominator)
+
+    void set(int numerator, int denominator)
     {
         this->numerator = numerator;
         this->denominator = denominator;
     }
-    void printFraction()
+
+    void print()
     {
         std::cout << numerator << "/" << denominator << std::endl;
     }
 
-    void multFraction(fraction other)
+    Fraction operator*(Fraction other)
     {
-        numerator *= other.numerator;
-        denominator *= other.denominator;
+        int tempN = numerator * other.numerator;
+        int tempD = denominator * other.denominator;
+
+        return Fraction(tempN, tempD);
     }
-    void divFraction(fraction other)
+
+    Fraction operator/(Fraction other)
     {
-        numerator *= other.denominator;
-        denominator *= other.numerator;
+        int tempN = numerator * other.denominator;
+        int tempD = denominator * other.numerator;
+
+        return Fraction(tempN, tempD);
     }
-    void addFraction(fraction other)
+
+    Fraction operator+(Fraction other)
     {
         int tempN = (this->numerator * other.denominator) + (this->denominator * other.numerator);
 
-        int tempD = this->denominator * other.denominator;
+        int tempD = (this->denominator * other.denominator);
 
-        this->numerator = tempN;
-        this->denominator = tempD;
+        return Fraction(tempN, tempD);
     }
-    void minFraction(fraction other)
+
+    Fraction operator-(Fraction other)
     {
         int tempN = (this->numerator * other.denominator) - (this->denominator * other.numerator);
 
         int tempD = this->denominator * other.denominator;
 
-        this->numerator = tempN;
-        this->denominator = tempD;
+        return Fraction(tempN, tempD);
     }
 };
 
 int main()
 {
-    fraction f1(15, 21);
-    fraction f2(5, 10);
+    Fraction f1(20, 20);
+    Fraction f2(5, 10);
 
-    f1.addFraction(f2);
-
-    f1.printFraction();
+    Fraction f3 = f1 * f2;
+    f3.print();
 
     return 0;
 }
